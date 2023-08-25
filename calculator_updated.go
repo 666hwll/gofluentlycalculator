@@ -32,14 +32,15 @@ func operations() {
 		fmt.Println("Invalid Input")
 
 	}
+	fmt.Println(*&solution)
 }
 
-func main() {
+func main_calc() {
 	for condition_main == true {
 		fmt.Scan(&first_number)
 		fmt.Scan(&operator)
 		fmt.Scan(&second_number)
 		operations()
-		fmt.Println(*&solution)
+
 	}
 }
