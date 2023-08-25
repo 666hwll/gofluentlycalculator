@@ -35,7 +35,7 @@ func operations() {
 	fmt.Println(*&solution)
 }
 
-func main_calc() {
+func main() {
 	for condition_main == true {
 		fmt.Scan(&first_number)
 		fmt.Scan(&operator)
