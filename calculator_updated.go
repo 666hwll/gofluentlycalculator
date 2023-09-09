@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"math"
+	"strconv"
 )
 
 var operator string
@@ -26,6 +28,18 @@ func operations() {
 			fmt.Println("Division through zero is not possible")
 		} else {
 			solution = first_number / second_number
+		}
+
+	case "^":
+		solution = math.Pow(first_number, second_number)
+
+	case "%":
+		flwithPRE := "0." + strconv.FormatFloat(first_number, 'f', -1, 64)
+		flVAL, err := strconv.ParseFloat(flwithPRE, 64)
+		if err != nil {
+			fmt.Println("Error while Convert-Attempt:", err)
+		} else {
+			solution = second_number * flVAL
 		}
 
 	default:
