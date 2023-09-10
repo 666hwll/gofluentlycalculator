@@ -1,7 +1,6 @@
 # gocalc
-A simple calculator written in Go
+A simple cli calculator written in Go
 ### Goals:
-- gui version
 - (optional) flags as input
 - web server
 ### Installation:
