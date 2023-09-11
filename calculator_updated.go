@@ -33,6 +33,15 @@ func operations() {
 	case "^":
 		solution = math.Pow(first_number, second_number)
 
+	case "v":
+		switch first_number {
+		case 2:
+			solution = math.Sqrt(second_number)
+
+		default:
+			solution = math.Pow(second_number, 1.0/first_number)
+		}
+
 	case "%":
 		flwithPRE := "0." + strconv.FormatFloat(first_number, 'f', -1, 64)
 		flVAL, err := strconv.ParseFloat(flwithPRE, 64)
