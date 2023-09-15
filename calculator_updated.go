@@ -10,7 +10,6 @@ var operator string
 var first_number float64
 var second_number float64
 var solution float64
-var condition_main = true
 
 func operations() {
 	switch operator {
@@ -59,7 +58,7 @@ func operations() {
 }
 
 func main() {
-	for condition_main == true {
+	for true {
 		fmt.Scan(&first_number)
 		fmt.Scan(&operator)
 		fmt.Scan(&second_number)
