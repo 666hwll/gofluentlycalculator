@@ -6,10 +6,13 @@ import (
 	"strconv"
 )
 
+// type glvar struct {
 var operator string
 var first_number float64
 var second_number float64
 var solution float64
+
+//}
 
 func operations() {
 	switch operator {
@@ -58,6 +61,7 @@ func operations() {
 }
 
 func main() {
+	//var mvar glvar
 	for true {
 		fmt.Scan(&first_number)
 		fmt.Scan(&operator)
