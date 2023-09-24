@@ -6,66 +6,63 @@ import (
 	"strconv"
 )
 
-// type glvar struct {
-var operator string
-var first_number float64
-var second_number float64
-var solution float64
-
-//}
+var mvar struct {
+ operator string
+ first_number float64
+ second_number float64
+ solution float64 }
 
 func operations() {
-	switch operator {
+	switch mvar.operator {
 	case "+":
-		solution = first_number + second_number
+		mvar.solution = mvar.first_number + mvar.second_number
 
 	case "-":
-		solution = first_number - second_number
+		mvar.solution = mvar.first_number - mvar.second_number
 
 	case "*":
-		solution = first_number * second_number
+		mvar.solution = mvar.first_number * mvar.second_number
 
 	case "/":
-		if second_number == 0 {
+		if mvar.second_number == 0 {
 			fmt.Println("Division through zero is not possible")
 		} else {
-			solution = first_number / second_number
+			mvar.solution = mvar.first_number / mvar.second_number
 		}
 
 	case "^":
-		solution = math.Pow(first_number, second_number)
+		mvar.solution = math.Pow(mvar.first_number, mvar.second_number)
 
 	case "v":
-		switch first_number {
+		switch mvar.first_number {
 		case 2:
-			solution = math.Sqrt(second_number)
+			mvar.solution = math.Sqrt(mvar.second_number)
 
 		default:
-			solution = math.Pow(second_number, 1.0/first_number)
+			mvar.solution = math.Pow(mvar.second_number, 1.0/mvar.first_number)
 		}
 
 	case "%":
-		flwithPRE := "0." + strconv.FormatFloat(first_number, 'f', -1, 64)
+		flwithPRE := "0." + strconv.FormatFloat(mvar.first_number, 'f', -1, 64)
 		flVAL, err := strconv.ParseFloat(flwithPRE, 64)
 		if err != nil {
 			fmt.Println("Error while Convert-Attempt:", err)
 		} else {
-			solution = second_number * flVAL
+			mvar.solution = mvar.second_number * flVAL
 		}
 
 	default:
 		fmt.Println("Invalid Input")
 
 	}
-	fmt.Println(*&solution)
+	fmt.Println(*&mvar.solution)
 }
 
 func main() {
-	//var mvar glvar
 	for true {
-		fmt.Scan(&first_number)
-		fmt.Scan(&operator)
-		fmt.Scan(&second_number)
+		fmt.Scan(&mvar.first_number)
+		fmt.Scan(&mvar.operator)
+		fmt.Scan(&mvar.second_number)
 		operations()
 
 	}
