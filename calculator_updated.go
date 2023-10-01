@@ -55,7 +55,7 @@ func operations() {
 			for i := 1; i <= mvar.first_number + 1, i++ {
 							result *= 1
 	  }
-			mvar.solution := result
+			mvar.solution := result * mvar.second_number
 
 	default:
 		fmt.Println("Invalid Input")
