@@ -50,12 +50,12 @@ func operations() {
 		} else {
 			mvar.solution = mvar.second_number * flVAL
 		}
-  case "!":
-			result := 1
-			for i := 1; i <= mvar.first_number + 1, i++ {
-							result *= 1
-	  }
-			mvar.solution := result * mvar.second_number
+  //case "!":
+			//result := 1
+			//for i := 1; i <= mvar.first_number + 1, i++ {
+							//result *= 1
+	  //}
+			//mvar.solution := result * mvar.second_number
 
 	default:
 		fmt.Println("Invalid Input")
@@ -66,9 +66,7 @@ func operations() {
 
 func main() {
 	for true {
-		fmt.Scan(&mvar.first_number)
-		fmt.Scan(&mvar.operator)
-		fmt.Scan(&mvar.second_number)
+		fmt.Scan(&mvar.first_number, &mvar.operator, &mvar.second_number)
 		operations()
 
 	}
