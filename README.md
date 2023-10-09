@@ -2,10 +2,11 @@
 A simple cli calculator written in Go
 ### Goals:
 - web server (http; maybe add udp)
-- the closest thing to minimalism while having functioning features
+- the closest thing to minimalism while having functioning features (only stdlib) 🔥
 ### Installation:
+``` bash
 go build calculator_updated.go -o gocalc
-(only the stdlb is being used)
+```
 ### features of the normal calculator
 - +
 - -
