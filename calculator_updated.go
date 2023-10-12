@@ -58,7 +58,7 @@ func operations() {
 			//mvar.solution := result * mvar.second_number
 
 	default:
-		fmt.Println("Invalid Input")
+		print("Invalid Input\n")
 
 	}
 	fmt.Println(*&mvar.solution)
