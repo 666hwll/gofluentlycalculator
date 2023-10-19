@@ -3,71 +3,65 @@ package main
 import (
 	"fmt"
 	"math"
-	"strconv"
 )
 
 var mvar struct {
- operator string
- first_number float64
- second_number float64
- solution float64 }
+ oper string
+ fnum float64
+ snum float64
+ solu float64 }
 
-func operations() {
-	switch mvar.operator {
+func factorial(n float64, b float64) float64 {
+	return math.Gamma(n+1) * b
+}
+
+func opera() {
+	switch mvar.oper {
 	case "+":
-		mvar.solution = mvar.first_number + mvar.second_number
+		mvar.solu = mvar.fnum + mvar.snum
 
 	case "-":
-		mvar.solution = mvar.first_number - mvar.second_number
+		mvar.solu = mvar.fnum - mvar.snum
 
 	case "*":
-		mvar.solution = mvar.first_number * mvar.second_number
+		mvar.solu = mvar.fnum * mvar.snum
 
 	case "/":
-		if mvar.second_number == 0 {
+		if mvar.snum == 0 {
 			fmt.Println("Division through zero is not possible")
 		} else {
-			mvar.solution = mvar.first_number / mvar.second_number
+			mvar.solu = mvar.fnum / mvar.snum
 		}
 
 	case "^":
-		mvar.solution = math.Pow(mvar.first_number, mvar.second_number)
+		mvar.solu = math.Pow(mvar.fnum, mvar.snum)
 
 	case "v":
-		switch mvar.first_number {
+		switch mvar.fnum {
 		case 2:
-			mvar.solution = math.Sqrt(mvar.second_number)
+			mvar.solu = math.Sqrt(mvar.snum)
 
 		default:
-			mvar.solution = math.Pow(mvar.second_number, 1.0/mvar.first_number)
+			mvar.solu = math.Pow(mvar.snum, 1.0/mvar.fnum)
 		}
 
 	case "%":
-		flwithPRE := "0." + strconv.FormatFloat(mvar.first_number, 'f', -1, 64)
-		flVAL, err := strconv.ParseFloat(flwithPRE, 64)
-		if err != nil {
-			fmt.Println("Error while Convert-Attempt:", err)
-		} else {
-			mvar.solution = mvar.second_number * flVAL
-		}
-  //case "!":
-			//result := 1
-			//for i := 1; i <= mvar.first_number + 1, i++ {
-							//result *= 1
-	  //}
-			//mvar.solution := result * mvar.second_number
+		mvar.solu = mvar.snum / 100 * mvar.fnum
+		
+  	case "!":
+		mvar.solu = factorial(mvar.fnum, mvar.snum)
 
 	default:
 		print("Invalid Input\n")
 
 	}
-	fmt.Println(*&mvar.solution)
+	fmt.Println(*&mvar.solu)
 }
 
 func main() {
 	for true {
-		fmt.Scan(&mvar.first_number, &mvar.operator, &mvar.second_number)
-		operations()
+		fmt.Scan(&mvar.fnum, &mvar.oper, &mvar.snum)
+		opera()
 
 	}
 }
