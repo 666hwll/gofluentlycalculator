@@ -60,9 +60,9 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 	operators := r.FormValue("OperatorfCalc")
 	second_numbers := r.FormValue("ValueTwo")
 
-	fmt.Fprintf(w, "ValueOne = %s\n", first_numbers)
+	fmt.Fprintf(w, "First number = %s\n", first_numbers)
 	fmt.Fprintf(w, "Operator = %s\n", operators)
-	fmt.Fprintf(w, "ValueTwo = %s\n", second_numbers)
+	fmt.Fprintf(w, "Second number = %s\n", second_numbers)
 	//operations_for_server()
 	//fmt.Fprintf(w, "solution: %f\n", *&solutions)
 }
