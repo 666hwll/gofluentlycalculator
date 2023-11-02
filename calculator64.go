@@ -23,6 +23,9 @@ func opera(x float64, y string, z float64, a float64) float64 {
 
 	case "*":
 		a = x * z
+	
+	case "x":
+		a = x * z
 
 	case "/":
 		if z == 0 {
@@ -70,8 +73,11 @@ func opera(x float64, y string, z float64, a float64) float64 {
 	case "!":
 		a = math.Gamma(x+1) * z
 
+	case "help":
+		print("Format: Number Operator Number; more in doc.txt\n")
+
 	default:
-		print("Invalid input\n")
+		print("Invalid input. Type help\n")
 	}
 	return a
 }

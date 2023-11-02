@@ -1,0 +1,19 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Gocalc
+Name[en]=Gocalc
+Name[de]=Gocalc
+Name[fr]=Gocalc
+Comment[en_GB]=minimal CLI Calculator
+Keywords=calculation;arithmethic;
+GenericName=Calculator
+GenericName[en]=Calculator
+GenericName[de]=Taschenrechner
+GenericName[fr]=calculatrice de poche
+
+Exec=gocalc
+Icon=Application
+Terminal=true
+StartupNotify=false
+Type=Application
+Categories=Application;Calculator;Utility;ConsoleOnly;

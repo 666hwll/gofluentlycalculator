@@ -7,27 +7,27 @@ import (
 )
 
 var first_numbers float64
-var second_numbers float64
-var operators string
-var solutions float64
+var	second_numbers float64
+var	operators string
+var	solutions float64
 
 func operations_for_server() {
 
 	switch operators {
 	case "+":
-		*&solutions = first_numbers + second_numbers
+		solutions = first_numbers + second_numbers
 
 	case "-":
-		*&solutions = first_numbers - second_numbers
+		solutions = first_numbers - second_numbers
 
 	case "*":
-		*&solutions = first_numbers * second_numbers
+		solutions = first_numbers * second_numbers
 
 	case "/":
 		if second_numbers == 0 {
 			fmt.Println("Division through zero is not possible")
 		} else {
-			*&solutions = first_numbers / second_numbers
+			solutions = first_numbers / second_numbers
 		}
 
 	default:
@@ -56,14 +56,14 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Fprintf(w, "POST request successful!\n")
-	first_numbers := r.FormValue("ValueOne")
-	operators := r.FormValue("OperatorfCalc")
-	second_numbers := r.FormValue("ValueTwo")
-
-	fmt.Fprintf(w, "First number = %s\n", first_numbers)
-	fmt.Fprintf(w, "Operator = %s\n", operators)
-	fmt.Fprintf(w, "Second number = %s\n", second_numbers)
-	//operations_for_server()
+	firstnumbers := r.FormValue("ValueOne")
+	operator := r.FormValue("OperatorfCalc")
+	secondnumbers := r.FormValue("ValueTwo")
+	&first_numbers, &operators, &second_numbers := strconv.ParseFloat(firstnumbers, operator, secondnumbers, 64)
+	fmt.Fprintf(w, "First number = %s\n", firstnumbers)
+	fmt.Fprintf(w, "Operator = %s\n", operator)
+	fmt.Fprintf(w, "Second number = %s\n", secondnumbers)
+	operations_for_server()
 	//fmt.Fprintf(w, "solution: %f\n", *&solutions)
 }
 
