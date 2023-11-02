@@ -1,0 +1,3 @@
+Welcome to the docs!
+
+This is an empty page.

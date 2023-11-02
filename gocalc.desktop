@@ -4,12 +4,13 @@ Name=Gocalc
 Name[en]=Gocalc
 Name[de]=Gocalc
 Name[fr]=Gocalc
-Comment[en_GB]=minimal CLI Calculator
+Comment[en]=minimal CLI Calculator
+Comment[de]=minimale CLI Rechner
 Keywords=calculation;arithmethic;
 GenericName=Calculator
 GenericName[en]=Calculator
-GenericName[de]=Taschenrechner
-GenericName[fr]=calculatrice de poche
+GenericName[de]=Rechner
+GenericName[fr]=calculatrice
 
 Exec=gocalc
 Icon=Application
