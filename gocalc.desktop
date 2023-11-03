@@ -1,9 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Gocalc
-Name[en]=Gocalc
-Name[de]=Gocalc
-Name[fr]=Gocalc
+Name=gocalc
+Name[en]=gocalc
+Name[de]=gocalc
+Name[fr]=gocalc
 Comment[en]=minimal CLI Calculator
 Comment[de]=minimaler CLI Rechner
 Comment[fr]=calculatrice CLI minimal
