@@ -80,7 +80,7 @@ func opera(x float64, y string, z float64, a float64) string {
 	default:
 		return "Invalid input. Type help"
 	}
-	return strconv.FormatFloat(a, 'f', 7, 64)
+	return strconv.FormatFloat(a, 'f', 5, 64)
 }
 
 func main() {
