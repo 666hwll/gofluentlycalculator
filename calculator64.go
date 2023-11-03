@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"flag"
+	"strconv"
 )
 
 var mvar struct {
@@ -13,7 +14,7 @@ var mvar struct {
 	solu float64
 }
 	
-func opera(x float64, y string, z float64, a float64) float64 {
+func opera(x float64, y string, z float64, a float64) string {
 	switch y {
 	case "+":
 		a = x + z
@@ -29,7 +30,7 @@ func opera(x float64, y string, z float64, a float64) float64 {
 
 	case "/":
 		if z == 0 {
-			print("division through 0 is impossible\n")
+			return "division through 0 is impossible"
 		} else {
 			a = x / z
 		}
@@ -74,12 +75,12 @@ func opera(x float64, y string, z float64, a float64) float64 {
 		a = math.Gamma(x+1) * z
 
 	case "help":
-		print("Format: Number Operator Number; more in doc.txt\n")
+		return "Format: Number Operator Number; more in doc.txt"
 
 	default:
-		print("Invalid input. Type help\n")
+		return "Invalid input. Type help"
 	}
-	return a
+	return strconv.FormatFloat(a, 'f', 7, 64)
 }
 
 func main() {

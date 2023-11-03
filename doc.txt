@@ -1,3 +1,21 @@
-Welcome to the docs!
+# Welcome to the docs!
 
-This is an empty page.
+## Input Format:
+Number(Space)Operator(Space)Number
+eg.: -1509 x 75757
+
+## Funktions:
++ = Addition
+- = Subtraction
+x = Multi.
+* = Multi.
+/ = Division
+^ = Power
+v = Roots; "2 v n" for Squareroot of n; works not only with Squareroots; all floats are supported
+tan & tanh
+sin & sinh
+cos & cosh
+log
+% eg.: 25 % 80 = 20
+!
+help
