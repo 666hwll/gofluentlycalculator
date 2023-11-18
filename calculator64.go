@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"math"
 	"os"
+	"path/filepath"
 	"strconv"
 )
 
@@ -28,7 +29,12 @@ type Proset struct {
 }
 
 func openfl() int {
-	jsonFile, err := os.Open("settings.json")
+	hmdir, err := os.UserHomeDir()
+	if err != nil {
+		return 3
+	}
+	dirp := filepath.Join(hmdir, "/.gocalc/settings.json")
+	jsonFile, err := os.Open(dirp)
 	if err != nil {
 		fmt.Println(err)
 		PrOPT.prtstandpr = PrOPT.stdpr
