@@ -1,9 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"math"
+	"encoding/json"
 	"flag"
+	"fmt"
+	"io/ioutil"
+	"math"
+	"os"
 	"strconv"
 )
 
@@ -12,9 +15,46 @@ var mvar struct {
 	fnum float64
 	snum float64
 	solu float64
+	svst float64
 }
-	
-func opera(x float64, y string, z float64, a float64) string {
+
+var PrOPT struct {
+	prtstandpr uint
+	stdpr      uint
+}
+
+type Proset struct {
+	Precision uint `json:"precision"`
+}
+
+func openfl() int {
+	jsonFile, err := os.Open("settings.json")
+	if err != nil {
+		fmt.Println(err)
+		PrOPT.prtstandpr = PrOPT.stdpr
+		return 1
+	}
+	defer jsonFile.Close()
+
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	var option Proset
+	err = json.Unmarshal(byteValue, &option)
+	if err != nil {
+		fmt.Println(err)
+		PrOPT.prtstandpr = PrOPT.stdpr
+		return 2
+	}
+	PrOPT.prtstandpr = option.Precision
+	return 0
+}
+
+func rndFl(val float64, precision uint) float64 {
+	ratio := math.Pow(10, float64(precision))
+	return math.Round(val*ratio) / ratio
+}
+
+func opera(x float64, y string, z float64, a float64, b float64) string {
 	switch y {
 	case "+":
 		a = x + z
@@ -24,7 +64,7 @@ func opera(x float64, y string, z float64, a float64) string {
 
 	case "*":
 		a = x * z
-	
+
 	case "x":
 		a = x * z
 
@@ -42,17 +82,17 @@ func opera(x float64, y string, z float64, a float64) string {
 		switch x {
 		case 2:
 			a = math.Sqrt(z)
-	
+
 		default:
 			a = math.Pow(z, 1.0/x)
 		}
-	
+
 	case "tan":
 		a = math.Tan(x) * z
 
 	case "tanh":
 		a = math.Tanh(x) * z
-		
+
 	case "sin":
 		a = math.Sin(x) * z
 
@@ -74,27 +114,41 @@ func opera(x float64, y string, z float64, a float64) string {
 	case "!":
 		a = math.Gamma(x+1) * z
 
+	case "round":
+		switch x {
+		case 0:
+			a = rndFl(b, PrOPT.prtstandpr)
+		default:
+			a = rndFl(x, uint(z))
+		}
+
 	case "help":
 		return "Format: Number Operator Number; more in doc.txt"
+
+	case "exit":
+		return "0"
 
 	default:
 		return "Invalid input. Type help"
 	}
-	return strconv.FormatFloat(a, 'f', 5, 64)
+	b = a
+	return strconv.FormatFloat(a, 'f', int(PrOPT.prtstandpr), 64)
 }
 
 func main() {
+	PrOPT.stdpr = 5
+	openfl()
 	flag.StringVar(&mvar.oper, "o", "", "operation")
 	flag.Float64Var(&mvar.fnum, "f", 0, "firstnum")
 	flag.Float64Var(&mvar.snum, "s", 1, "secondnum")
 	flag.Parse()
-	if (mvar.oper != "" && mvar.fnum != 0) {
-		fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu))
+	if mvar.oper != "" && mvar.fnum != 0 {
+		fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu, mvar.svst))
 	} else {
 		for {
 			fmt.Scan(&mvar.fnum, &mvar.oper, &mvar.snum)
-			fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu))
+			fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu, mvar.svst))
 		}
 	}
-	
+
 }
