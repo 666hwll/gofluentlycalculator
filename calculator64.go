@@ -60,7 +60,7 @@ func rndFl(val float64, precision uint) float64 {
 	return math.Round(val*ratio) / ratio
 }
 
-func opera(x float64, y string, z float64, a float64, b float64) string {
+func opera(x float64, y string, z float64, a float64) string {
 	switch y {
 	case "+":
 		a = x + z
@@ -76,7 +76,7 @@ func opera(x float64, y string, z float64, a float64, b float64) string {
 
 	case "/":
 		if z == 0 {
-			return "division through 0 is impossible"
+			return "\x1b[31mdivision through 0 is impossible\x1b[0m"
 		} else {
 			a = x / z
 		}
@@ -123,37 +123,37 @@ func opera(x float64, y string, z float64, a float64, b float64) string {
 	case "round":
 		switch x {
 		case 0:
-			a = rndFl(b, PrOPT.prtstandpr)
+			a = rndFl(mvar.svst, PrOPT.prtstandpr)
 		default:
 			a = rndFl(x, uint(z))
 		}
 
 	case "help":
-		return "Format: Number Operator Number; more in doc.txt"
+		return "Format: [Number][Space][Operator][Space][Number]"
 
 	case "exit":
 		return "0"
 
 	default:
-		return "Invalid input. Type help"
+		return "\x1b[31mInvalid input. Type help\x1b[0m"
 	}
-	b = a
+	mvar.svst = a
 	return strconv.FormatFloat(a, 'f', int(PrOPT.prtstandpr), 64)
 }
 
 func main() {
 	PrOPT.stdpr = 5
-	openfl()
 	flag.StringVar(&mvar.oper, "o", "", "operation")
 	flag.Float64Var(&mvar.fnum, "f", 0, "firstnum")
 	flag.Float64Var(&mvar.snum, "s", 1, "secondnum")
 	flag.Parse()
 	if mvar.oper != "" && mvar.fnum != 0 {
-		fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu, mvar.svst))
+		fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu))
 	} else {
 		for {
+			go openfl()
 			fmt.Scan(&mvar.fnum, &mvar.oper, &mvar.snum)
-			fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu, mvar.svst))
+			fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu))
 		}
 	}
 
