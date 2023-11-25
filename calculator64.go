@@ -22,6 +22,7 @@ var mvar struct {
 var PrOPT struct {
 	prtstandpr uint
 	stdpr      uint
+	col        string
 }
 
 type Proset struct {
@@ -48,7 +49,6 @@ func openfl() int {
 	err = json.Unmarshal(byteValue, &option)
 	if err != nil {
 		fmt.Println(err)
-		PrOPT.prtstandpr = PrOPT.stdpr
 		return 2
 	}
 	PrOPT.prtstandpr = option.Precision
@@ -132,7 +132,7 @@ func opera(x float64, y string, z float64, a float64) string {
 		return "Format: [Number][Space][Operator][Space][Number]"
 
 	case "exit":
-		return "0"
+		os.Exit(0)
 
 	default:
 		return "\x1b[31mInvalid input. Type help\x1b[0m"
@@ -154,6 +154,7 @@ func main() {
 			go openfl()
 			fmt.Scan(&mvar.fnum, &mvar.oper, &mvar.snum)
 			fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu))
+
 		}
 	}
 
