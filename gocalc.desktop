@@ -51,4 +51,4 @@ Icon=gocalcico
 Terminal=true
 StartupNotify=false
 Type=Application
-Categories=Application;Calculator;Utility;ConsoleOnly;
+Categories=Calculator;Utility;ConsoleOnly;
