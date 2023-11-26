@@ -1,4 +1,5 @@
 INSTALL_DIR = /usr/bin
+sourcemirror = https://github.com/666hwll/gocalc
 StartDIR = /usr/share/applications/
 ICODIR = /usr/share/pixmaps/
 StartNAME = gocalc.desktop
@@ -19,8 +20,26 @@ install:
 	sudo cp $(StartNAME) $(StartDIR) 
 	mkdir -p $(HOME)/$(setdirc)
 	cp $(pref) $(HOME)/$(setdirc)
+	cp Makefile $(HOME)/$(setdirc)
 uninstall:
 	sudo rm $(INSTALL_DIR)/$(OUTNAME)
 	sudo rm $(StartDIR)/$(StartNAME)
 	sudo rm $(ICODIR)/$(ICONAME)
 	rm -r $(HOME)/$(setdirc)
+
+dependencies:
+	@read -p  "works only on debian-based systems with APT; continue? [y/n]" answer; \
+	if [ "$$answer" = "y" ]; then \
+		sudo apt install gccgo; \
+	else \
+		echo "Aborting..."; \
+		exit 1; \
+	fi
+
+
+upgrade:
+	uninstall
+	current_dir := $(shell pwd)
+	cd ..
+	rm -r $(current_dir)
+	git clone $(sourcemirror)
