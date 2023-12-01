@@ -4,34 +4,37 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 )
 
-var first_numbers float64
-var	second_numbers float64
-var	operators string
-var	solutions float64
+var oval struct {
+	first_numbers  float64
+	second_numbers float64
+	operators      string
+	solutions      float64
+}
 
-func operations_for_server() {
+func operations_for_server(w http.ResponseWriter) {
 
-	switch operators {
+	switch oval.operators {
 	case "+":
-		solutions = first_numbers + second_numbers
+		oval.solutions = oval.first_numbers + oval.second_numbers
 
 	case "-":
-		solutions = first_numbers - second_numbers
+		oval.solutions = oval.first_numbers - oval.second_numbers
 
 	case "*":
-		solutions = first_numbers * second_numbers
+		oval.solutions = oval.first_numbers * oval.second_numbers
 
 	case "/":
-		if second_numbers == 0 {
+		if oval.second_numbers == 0 {
 			fmt.Println("Division through zero is not possible")
 		} else {
-			solutions = first_numbers / second_numbers
+			oval.solutions = oval.first_numbers / oval.second_numbers
 		}
 
 	default:
-		fmt.Println("Invalid Input")
+		fmt.Fprintf(w, "Invalid Input\n")
 
 	}
 }
@@ -51,20 +54,30 @@ func WelcomeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func formHandler(w http.ResponseWriter, r *http.Request) {
-	if err := r.ParseForm(); err != nil {
+	var err error
+	if err = r.ParseForm(); err != nil {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
 	}
+	//submitValue := r.FormValue("submit")
+	//if submitValue != "" {
+	// The submit button was pressed
 	fmt.Fprintf(w, "POST request successful!\n")
 	firstnumbers := r.FormValue("ValueOne")
-	operator := r.FormValue("OperatorfCalc")
+	oval.operators = r.FormValue("OperatorfCalc")
 	secondnumbers := r.FormValue("ValueTwo")
-	&first_numbers, &operators, &second_numbers := strconv.ParseFloat(firstnumbers, operator, secondnumbers, 64)
-	fmt.Fprintf(w, "First number = %s\n", firstnumbers)
-	fmt.Fprintf(w, "Operator = %s\n", operator)
-	fmt.Fprintf(w, "Second number = %s\n", secondnumbers)
-	operations_for_server()
-	//fmt.Fprintf(w, "solution: %f\n", *&solutions)
+	oval.first_numbers, err = strconv.ParseFloat(firstnumbers, 64)
+	if err != nil {
+		fmt.Fprintf(w, "error while converting first float\n")
+	}
+	oval.second_numbers, err = strconv.ParseFloat(secondnumbers, 64)
+	if err != nil {
+		fmt.Fprintf(w, "error while converting second float")
+	}
+	operations_for_server(w)
+	fmt.Fprintf(w, "%f", oval.solutions)
+	//}
+
 }
 
 func main() {
