@@ -132,7 +132,7 @@ func opera(x float64, y string, z float64, a float64) string {
 		return "Format: [Number][Space][Operator][Space][Number]"
 
 	case "list":
-		return "+\n-\n* and x\n/\n^\nv\ntan/h\nsin/h\ncos/h\nlog\n%\n!\nround\nhelp\nexit"
+		return "+ -\n* and x /\n^ v\ntan/h sin/h\ncos/h log\n% !\nround help\nexit"
 
 	case "exit":
 		os.Exit(0)

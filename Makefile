@@ -14,18 +14,19 @@ help:
 	@echo "make uninstall 	Remove Gocalc"
 
 install:
-	gccgo -o $(OUTNAME) $(INNAME)
-	sudo cp $(OUTNAME) $(INSTALL_DIR)
-	sudo cp $(ICONAME) $(ICODIR)
-	sudo cp $(StartNAME) $(StartDIR) 
-	mkdir -p $(HOME)/$(setdirc)
-	cp $(pref) $(HOME)/$(setdirc)
-	cp Makefile $(HOME)/$(setdirc)
+	@gccgo -o $(OUTNAME) $(INNAME)
+	@sudo cp $(OUTNAME) $(INSTALL_DIR)
+	@sudo cp $(ICONAME) $(ICODIR)
+	@sudo cp $(StartNAME) $(StartDIR) 
+	@mkdir -p $(HOME)/$(setdirc)
+	@cp $(pref) $(HOME)/$(setdirc)
+	@cp Makefile $(HOME)/$(setdirc)
+	@echo "finished installation process"
 uninstall:
-	sudo rm $(INSTALL_DIR)/$(OUTNAME)
-	sudo rm $(StartDIR)/$(StartNAME)
-	sudo rm $(ICODIR)/$(ICONAME)
-	rm -r $(HOME)/$(setdirc)
+	@sudo rm $(INSTALL_DIR)/$(OUTNAME)
+	@sudo rm $(StartDIR)/$(StartNAME)
+	@sudo rm $(ICODIR)/$(ICONAME)
+	@rm -r $(HOME)/$(setdirc)
 
 dependencies:
 	@read -p  "works only on debian-based systems with APT; continue? [y/n]" answer; \
