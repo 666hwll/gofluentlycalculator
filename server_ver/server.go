@@ -59,13 +59,14 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
 	}
-	//submitValue := r.FormValue("submit")
-	//if submitValue != "" {
+
 	// The submit button was pressed
 	fmt.Fprintf(w, "POST request successful!\n")
 	firstnumbers := r.FormValue("ValueOne")
 	oval.operators = r.FormValue("OperatorfCalc")
 	secondnumbers := r.FormValue("ValueTwo")
+	//submitValue := r.FormValue("submit")
+	//if submitValue != "" {
 	oval.first_numbers, err = strconv.ParseFloat(firstnumbers, 64)
 	if err != nil {
 		fmt.Fprintf(w, "error while converting first float\n")
