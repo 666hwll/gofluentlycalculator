@@ -34,7 +34,7 @@ func openfl() int {
 	if err != nil {
 		return 3
 	}
-	dirp := filepath.Join(hmdir, "/.gocalc/settings.json")
+	dirp := filepath.Join(hmdir, "/.config/gocalc/settings.json")
 	jsonFile, err := os.Open(dirp)
 	if err != nil {
 		fmt.Println(err)

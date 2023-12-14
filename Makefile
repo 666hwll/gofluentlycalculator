@@ -7,7 +7,7 @@ INNAME = calculator64.go
 ICONAME = gocalcico.svg
 OUTNAME = gocalc
 pref = settings.json
-setdirc = .gocalc
+setdirc = /.config/gocalc
 
 help:
 	@echo "make install 	Install Gocalc"
