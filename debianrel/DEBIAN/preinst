@@ -1,0 +1,5 @@
+#!/bin/sh
+mkdir -p "$(getent passwd $SUDO_USER | cut -d: -f6)/.config/gocalc"
+touch "$(getent passwd $SUDO_USER | cut -d: -f6)/.config/gocalc/settings.json"
+echo '{"precision": 5,"col": "\u001b[0m"}' > "$(getent passwd $SUDO_USER | cut -d: -f6)/.config/gocalc/settings.json"
+echo "running script"

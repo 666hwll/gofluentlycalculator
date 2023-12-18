@@ -1,0 +1,5 @@
+Package: gocalc
+Version: 0.0.1
+Architecture: amd64
+Maintainer: darwin zmugg
+Description: minimal calculator made for CLI

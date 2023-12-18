@@ -26,7 +26,8 @@ var PrOPT struct {
 }
 
 type Proset struct {
-	Precision uint `json:"precision"`
+	Precision uint   `json:"precision"`
+	Color     string `json:"col"`
 }
 
 func openfl() int {
@@ -52,6 +53,7 @@ func openfl() int {
 		return 2
 	}
 	PrOPT.prtstandpr = option.Precision
+	PrOPT.col = option.Color
 	return 0
 }
 
@@ -60,7 +62,18 @@ func rndFl(val float64, precision uint) float64 {
 	return math.Round(val*ratio) / ratio
 }
 
+func inviformat() string {
+	var ct uint = 0
+	var imsg string = "Invalid input. Type '0 help 0'"
+	ct++
+	if ct%2 == 0 {
+		imsg = "'0 list 0' for commands and '0 exit 0' to exit."
+	}
+	return imsg
+}
+
 func opera(x float64, y string, z float64, a float64) string {
+	var rval string
 	switch y {
 	case "+":
 		a = x + z
@@ -132,16 +145,17 @@ func opera(x float64, y string, z float64, a float64) string {
 		return "Format: [Number][Space][Operator][Space][Number]"
 
 	case "list":
-		return "+ - * and x /\n^ v tan/h sin/h\ncos/h log % !\nround help exit"
+		return "+ - * and x /\n^ v\n tan/h sin/h cos/h\n log % !\nround help exit"
 
 	case "exit":
 		os.Exit(0)
 
 	default:
-		return "\x1b[31mInvalid input. Type help\x1b[0m"
+		return "\x1b[31m" + inviformat() + "\x1b[0m"
 	}
 	mvar.svst = a
-	return strconv.FormatFloat(a, 'f', int(PrOPT.prtstandpr), 64)
+	rval = strconv.FormatFloat(a, 'f', int(PrOPT.prtstandpr), 64)
+	return PrOPT.col + rval + "\x1b[0m"
 }
 
 func main() {
