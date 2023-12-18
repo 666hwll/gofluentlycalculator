@@ -1,5 +1,4 @@
 INSTALL_DIR = /usr/bin
-sourcemirror = https://github.com/666hwll/gofluentlycalculator
 StartDIR = /usr/share/applications/
 ICODIR = /usr/share/pixmaps/
 StartNAME = gocalc.desktop
@@ -49,9 +48,3 @@ debuninstall:
 crcptoarm64:
 	GOARCH=arm64 CC=aarch64-linux-gnu-gccgo go build -o gocalc calculator64.go
 
-upgrade:
-	uninstall
-	current_dir := $(shell pwd)
-	cd ..
-	rm -r $(current_dir)
-	git clone $(sourcemirror)
