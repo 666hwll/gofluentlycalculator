@@ -1,15 +1,21 @@
 # gocalc
-A simple cli calculator written in Go
+A simple cli calculator written in Go,
+that only takes 3 args in one statement as input;
+to improve readability in the terminal with proactive simplicity
 ### Goals:
 - [x] web server 
 - [x] the closest thing to minimalism while having a functioning calculator you could use (only stdlib) 🔥
-- [] replacing the gnome calculator and my Mathprint TI
-- [] c implementation with/out lua plugins; for portability and stability
-- [] optimization of that mess lol
-- [] debian package for pi-apps and the aptitude package manager
+- replacing the gnome calculator and my Mathprint TI
+- c implementation with/out lua plugins; for portability and stability
+- optimization of that mess lol
+- debian package for pi-apps and new releases
 ### Installation:
 ``` bash
 make install
+```
+or 
+``` bash
+sudo dpkg -i gocalc_(whateverarchitecture).deb
 ```
 
 ### new features of the normal calculator:

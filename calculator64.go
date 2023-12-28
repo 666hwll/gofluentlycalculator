@@ -23,6 +23,7 @@ var PrOPT struct {
 	prtstandpr uint
 	stdpr      uint
 	col        string
+	ct         uint
 }
 
 type Proset struct {
@@ -36,6 +37,7 @@ func openfl() int {
 		return 3
 	}
 	dirp := filepath.Join(hmdir, "/.config/gocalc/settings.json")
+
 	jsonFile, err := os.Open(dirp)
 	if err != nil {
 		fmt.Println(err)
@@ -63,10 +65,9 @@ func rndFl(val float64, precision uint) float64 {
 }
 
 func inviformat() string {
-	var ct uint = 0
 	var imsg string = "Invalid input. Type '0 help 0'"
-	ct++
-	if ct%2 == 0 {
+	PrOPT.ct++
+	if PrOPT.ct%2 == 0 {
 		imsg = "'0 list 0' for commands and '0 exit 0' to exit."
 	}
 	return imsg
@@ -107,22 +108,52 @@ func opera(x float64, y string, z float64, a float64) string {
 		}
 
 	case "tan":
-		a = math.Tan(x) * z
+		a = math.Tan(x)
+		z = float64(PrOPT.prtstandpr)
+
+	case "atan":
+		a = math.Atan(x)
+		z = float64(PrOPT.prtstandpr)
 
 	case "tanh":
-		a = math.Tanh(x) * z
+		a = math.Tanh(x)
+		z = float64(PrOPT.prtstandpr)
+
+	case "atanh":
+		a = math.Atanh(x)
+		z = float64(PrOPT.prtstandpr)
 
 	case "sin":
-		a = math.Sin(x) * z
+		a = math.Sin(x)
+		z = float64(PrOPT.prtstandpr)
+
+	case "asin":
+		a = math.Asin(x)
+		z = float64(PrOPT.prtstandpr)
 
 	case "sinh":
-		a = math.Sinh(x) * z
+		a = math.Sinh(x)
+		z = float64(PrOPT.prtstandpr)
+
+	case "asinh":
+		a = math.Asinh(x)
+		z = float64(PrOPT.prtstandpr)
 
 	case "cos":
-		a = math.Cos(x) * z
+		a = math.Cos(x)
+		z = float64(PrOPT.prtstandpr)
+
+	case "acos":
+		a = math.Acos(x)
+		z = float64(PrOPT.prtstandpr)
 
 	case "cosh":
-		a = math.Cosh(x) * z
+		a = math.Cosh(x)
+		z = float64(PrOPT.prtstandpr)
+
+	case "acosh":
+		a = math.Acosh(x)
+		z = float64(PrOPT.prtstandpr)
 
 	case "log":
 		a = math.Log(x) / math.Log(z)
@@ -145,7 +176,7 @@ func opera(x float64, y string, z float64, a float64) string {
 		return "Format: [Number][Space][Operator][Space][Number]"
 
 	case "list":
-		return "+ - * and x /\n^ v\n tan/h sin/h cos/h\n log % !\nround help exit"
+		return "+ - * and x /\n^ v\n a/tan/h a/sin/h a/cos/h\n log % !\nround help exit"
 
 	case "exit":
 		os.Exit(0)
@@ -160,6 +191,7 @@ func opera(x float64, y string, z float64, a float64) string {
 
 func main() {
 	PrOPT.stdpr = 5
+	PrOPT.ct = 0
 	flag.StringVar(&mvar.oper, "o", "", "operation")
 	flag.Float64Var(&mvar.fnum, "f", 0, "firstnum")
 	flag.Float64Var(&mvar.snum, "s", 1, "secondnum")
