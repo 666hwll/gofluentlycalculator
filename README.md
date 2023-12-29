@@ -5,10 +5,11 @@ to improve readability in the terminal with proactive simplicity
 ### Goals:
 - [x] web server 
 - [x] the closest thing to minimalism while having a functioning calculator you could use (only stdlib) 🔥
+- [x] prevent someone from using google.com as calculator 
 - replacing the gnome calculator and my Mathprint TI
-- c implementation with/out lua plugins; for portability and stability
+- c implementation for portability and stability or somekind of portable version
 - optimization of that mess lol
-- debian package for pi-apps and new releases
+- debian package for pi-apps and new releases; planning to make a windows version 
 ### Installation:
 ``` bash
 make install
@@ -26,3 +27,4 @@ sudo dpkg -i gocalc_(whateverarchitecture).deb
 ### what does not work intensionally because minimalism and format:
 - [x] Brackets
 - [x] variables
+
