@@ -11,7 +11,7 @@ import (
 	"strconv"
 )
 
-var mvar struct {
+var mvar struct { //values used for processing
 	oper string
 	fnum float64
 	snum float64
@@ -19,19 +19,19 @@ var mvar struct {
 	svst float64
 }
 
-var PrOPT struct {
+var PrOPT struct { //standart values
 	prtstandpr uint
 	stdpr      uint
 	col        string
 	ct         uint
 }
 
-type Proset struct {
+type Proset struct { //settings.json template
 	Precision uint   `json:"precision"`
 	Color     string `json:"col"`
 }
 
-func openfl() int {
+func openfl() int { //opens, reads & parses the settings.json file
 	hmdir, err := os.UserHomeDir()
 	if err != nil {
 		return 3
@@ -59,12 +59,12 @@ func openfl() int {
 	return 0
 }
 
-func rndFl(val float64, precision uint) float64 {
+func rndFl(val float64, precision uint) float64 { //round function for opera()
 	ratio := math.Pow(10, float64(precision))
 	return math.Round(val*ratio) / ratio
 }
 
-func inviformat() string {
+func inviformat() string { //error function for opera()
 	var imsg string = "Invalid input. Type '0 help 0'"
 	PrOPT.ct++
 	if PrOPT.ct%2 == 0 {
@@ -73,7 +73,7 @@ func inviformat() string {
 	return imsg
 }
 
-func opera(x float64, y string, z float64, a float64) string {
+func opera(x float64, y string, z float64, a float64) string { // calculates, saves the outcome and convert to string
 	var rval string
 	switch y {
 	case "+":
