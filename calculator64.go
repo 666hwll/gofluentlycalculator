@@ -23,6 +23,7 @@ var PrOPT struct { //standart values
 	prtstandpr uint
 	stdpr      uint
 	col        string
+	msg        string
 	ct         uint
 }
 
@@ -59,6 +60,17 @@ func openfl() int { //opens, reads & parses the settings.json file
 	return 0
 }
 
+func preprocc() string {
+	mvar.solu = opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu)
+	//working on a new preproccessor to round up the UX of the programm a bit and the readability
+	if PrOPT.msg == "" {
+		PrOPT.msg = strconv.FormatFloat(mvar.solu, 'f', int(PrOPT.prtstandpr), 64)
+		return PrOPT.col + PrOPT.msg + "\x1b[0m"
+	}
+	return ""
+
+}
+
 func rndFl(val float64, precision uint) float64 { //round function for opera()
 	ratio := math.Pow(10, float64(precision))
 	return math.Round(val*ratio) / ratio
@@ -73,8 +85,7 @@ func inviformat() string { //error function for opera()
 	return imsg
 }
 
-func opera(x float64, y string, z float64, a float64) string { // calculates, saves the outcome and convert to string
-	var rval string
+func opera(x float64, y string, z float64, a float64) float64 { // calculates, saves the outcome and convert to string
 	switch y {
 	case "+":
 		a = x + z
@@ -90,7 +101,7 @@ func opera(x float64, y string, z float64, a float64) string { // calculates, sa
 
 	case "/":
 		if z == 0 {
-			return "\x1b[31mdivision through 0 is impossible\x1b[0m"
+			PrOPT.msg = "\x1b[31mdivision through 0 is impossible\x1b[0m"
 		} else {
 			a = x / z
 		}
@@ -173,20 +184,22 @@ func opera(x float64, y string, z float64, a float64) string { // calculates, sa
 		}
 
 	case "help":
-		return "Format: [Number][Space][Operator][Space][Number]"
+		PrOPT.msg = "Format: [Number][Space][Operator][Space][Number]"
 
 	case "list":
-		return "+ - * and x /\n^ v\n a/tan/h a/sin/h a/cos/h\n log % !\nround help exit"
+		PrOPT.msg = "+ - * and x /\n^ v\n a/tan/h a/sin/h a/cos/h\n log % !\nround help exit"
 
 	case "exit":
 		os.Exit(0)
 
 	default:
-		return "\x1b[31m" + inviformat() + "\x1b[0m"
+		PrOPT.msg = "\x1b[31m" + inviformat() + "\x1b[0m"
 	}
 	mvar.svst = a
-	rval = strconv.FormatFloat(a, 'f', int(PrOPT.prtstandpr), 64)
-	return PrOPT.col + rval + "\x1b[0m"
+	if a == 0 {
+		fmt.Println(PrOPT.msg)
+	}
+	return a
 }
 
 func main() {
@@ -200,11 +213,14 @@ func main() {
 		fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu))
 	} else {
 		for {
+			mvar.solu = 0
+			PrOPT.msg = ""
 			go openfl()
 			fmt.Scan(&mvar.fnum, &mvar.oper, &mvar.snum)
-			fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu))
+			//fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu))
+			fmt.Println(preprocc())
 
 		}
-	}
 
+	}
 }

@@ -26,5 +26,5 @@ sudo dpkg -i gocalc_(whateverarchitecture).deb
 - [x] a json for config
 ### what does not work intensionally because minimalism and format:
 - [x] Brackets
-- [x] variables
+- [x] variable
 
