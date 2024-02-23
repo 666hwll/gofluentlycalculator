@@ -8,8 +8,7 @@ setdirc = /.config/gocalc
 
 help:
 	@echo "make install 	Install Gocalc"
-	@echo "make uninstall 	Remove Gocalc"
-
+	@echo "make uninstall 	Remove Gocalc"<
 
 install:
 	@gccgo -o gocalc $(INNAME)

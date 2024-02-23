@@ -37,7 +37,7 @@ func openfl() int { //opens, reads & parses the settings.json file
 	if err != nil {
 		return 3
 	}
-	//dirp := filepath.Join(hmdir, "/.config/gocalc/settings.json")
+
 	dirp := filepath.Join(hmdir, ".config", "gocalc", "settings.json")
 
 	byteValue, err := os.ReadFile(dirp)
