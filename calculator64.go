@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"math"
 	"os"
 	"path/filepath"
@@ -12,19 +11,20 @@ import (
 )
 
 var mvar struct { //values used for processing
-	oper string
-	fnum float64
-	snum float64
-	solu float64
-	svst float64
+	oper string  // operator
+	fnum float64 // first number of current operation
+	snum float64 // second number of curr operation
+	solu float64 // solution
+	svst float64 // savestate
 }
 
 var PrOPT struct { //standart values
-	prtstandpr uint
-	stdpr      uint
-	col        string
-	msg        string
-	ct         uint
+	rt         bool   // runtime
+	prtstandpr uint   // standart precision point
+	stdpr      uint   // default standart precision point
+	col        string // text color
+	msg        string // message(s)
+	ct         uint   // counter
 }
 
 type Proset struct { //settings.json template
@@ -37,17 +37,15 @@ func openfl() int { //opens, reads & parses the settings.json file
 	if err != nil {
 		return 3
 	}
-	dirp := filepath.Join(hmdir, "/.config/gocalc/settings.json")
+	//dirp := filepath.Join(hmdir, "/.config/gocalc/settings.json")
+	dirp := filepath.Join(hmdir, ".config", "gocalc", "settings.json")
 
-	jsonFile, err := os.Open(dirp)
+	byteValue, err := os.ReadFile(dirp)
 	if err != nil {
 		fmt.Println(err)
 		PrOPT.prtstandpr = PrOPT.stdpr
 		return 1
 	}
-	defer jsonFile.Close()
-
-	byteValue, _ := ioutil.ReadAll(jsonFile)
 
 	var option Proset
 	err = json.Unmarshal(byteValue, &option)
@@ -86,7 +84,7 @@ func inviformat() string { //error function for opera()
 }
 
 func opera(x float64, y string, z float64, a float64) float64 { // calculates, saves the outcome and convert to string
-	switch y {
+	switch y { // will later on be replaced with a dictionary and functions for each cmd
 	case "+":
 		a = x + z
 
@@ -190,7 +188,7 @@ func opera(x float64, y string, z float64, a float64) float64 { // calculates, s
 		PrOPT.msg = "+ - * and x /\n^ v\n a/tan/h a/sin/h a/cos/h\n log % !\nround help exit"
 
 	case "exit":
-		os.Exit(0)
+		PrOPT.rt = false
 
 	default:
 		PrOPT.msg = "\x1b[31m" + inviformat() + "\x1b[0m"
@@ -203,6 +201,7 @@ func opera(x float64, y string, z float64, a float64) float64 { // calculates, s
 }
 
 func main() {
+	PrOPT.rt = true
 	PrOPT.stdpr = 5
 	PrOPT.ct = 0
 	flag.StringVar(&mvar.oper, "o", "", "operation")
@@ -212,7 +211,7 @@ func main() {
 	if mvar.oper != "" && mvar.fnum != 0 {
 		fmt.Println(opera(mvar.fnum, mvar.oper, mvar.snum, mvar.solu))
 	} else {
-		for {
+		for PrOPT.rt == true {
 			mvar.solu = 0
 			PrOPT.msg = ""
 			go openfl()
