@@ -24,7 +24,7 @@ jobs:
     - name: Init
       run: go mod init github.com/666hwll/gofluentlycalculator
     - name: Build
-      run: go build -v -x -o calculator64.go ./gocalc
+      run: go build -v -x -o calculator64.go gocalc
 
     - name: Test-1
       run: go run gocalc + 23 34
